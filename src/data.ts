@@ -40,7 +40,7 @@ export const SERVICES: ServiceItem[] = [
   },
   {
     id: 'content-production',
-    title: 'Content Production & Video Editing',
+    title: 'Production & Video Editing',
     description: 'Professional content creation for YouTube, podcasts, brands and influencers. We transform ideas into engaging visual stories that capture attention and drive results.',
     iconName: 'videocam',
     deliverables: [
