@@ -9,6 +9,13 @@ import { CustomSection, CustomSectionType } from '../types/builder';
 const STORAGE_KEY = 'renowned_wp_builder_v1';
 
 interface BuilderContextType {
+  isAdminLoggedIn: boolean;
+  isAdminModalOpen: boolean;
+  openAdminModal: () => void;
+  closeAdminModal: () => void;
+  loginAdmin: () => void;
+  logoutAdmin: () => void;
+
   isBuilderMode: boolean;
   setIsBuilderMode: (value: boolean) => void;
   toggleBuilderMode: () => void;
@@ -66,6 +73,11 @@ const DEFAULT_HOME_SECTIONS = [
 const BuilderContext = createContext<BuilderContextType | null>(null);
 
 export const BuilderProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(() => {
+    return sessionStorage.getItem('rw_admin_logged_in') === 'true';
+  });
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState<boolean>(false);
+
   const [isBuilderMode, setIsBuilderMode] = useState<boolean>(false);
   const [textOverrides, setTextOverrides] = useState<Record<string, string>>({});
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
@@ -78,6 +90,42 @@ export const BuilderProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [isPublished, setIsPublished] = useState<boolean>(false);
   const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Check URL params & shortcuts
+  useEffect(() => {
+    const search = window.location.search.toLowerCase();
+    if (search.includes('admin') || search.includes('builder') || search.includes('edit') || window.location.pathname === '/wp-admin') {
+      setIsAdminModalOpen(true);
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Alt + W or Ctrl + Shift + E to open WP-Admin modal
+      if ((e.altKey && e.key.toLowerCase() === 'w') || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'e')) {
+        e.preventDefault();
+        setIsAdminModalOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const openAdminModal = () => setIsAdminModalOpen(true);
+  const closeAdminModal = () => setIsAdminModalOpen(false);
+
+  const loginAdmin = () => {
+    setIsAdminLoggedIn(true);
+    setIsBuilderMode(true);
+    sessionStorage.setItem('rw_admin_logged_in', 'true');
+    showToast('🔓 Logged in as WP-Admin. Visual Live Builder unlocked!');
+  };
+
+  const logoutAdmin = () => {
+    setIsAdminLoggedIn(false);
+    setIsBuilderMode(false);
+    sessionStorage.setItem('rw_admin_logged_in', 'false');
+    showToast('🔒 Logged out of WP-Admin. Returning to live public site.');
+  };
 
   // Load from localStorage on initial render
   useEffect(() => {
@@ -377,6 +425,12 @@ export const BuilderProvider: React.FC<{ children: React.ReactNode }> = ({ child
   return (
     <BuilderContext.Provider
       value={{
+        isAdminLoggedIn,
+        isAdminModalOpen,
+        openAdminModal,
+        closeAdminModal,
+        loginAdmin,
+        logoutAdmin,
         isBuilderMode,
         setIsBuilderMode,
         toggleBuilderMode,

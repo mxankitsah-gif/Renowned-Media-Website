@@ -129,3 +129,5 @@ export const EditableText: React.FC<EditableTextProps> = ({
     </Component>
   );
 };
+
+export default EditableText;

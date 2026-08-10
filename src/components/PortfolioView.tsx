@@ -8,6 +8,8 @@ import { ArrowRight, ChevronLeft, ChevronRight, Check, User } from 'lucide-react
 import { motion, AnimatePresence } from 'motion/react';
 import { PROJECTS, PUBLIC_FIGURES } from '../data';
 import { ProjectItem } from '../types';
+import EditableText from './builder/EditableText';
+import EditableImage from './builder/EditableImage';
 
 interface PortfolioViewProps {
   onSelectProject: (project: ProjectItem) => void;
@@ -36,14 +38,14 @@ export default function PortfolioView({ onSelectProject, onRequestQuote }: Portf
         {/* Section Title */}
         <div className="text-left border-l-4 border-[#1d4ed8] pl-4 space-y-2">
           <span className="font-mono text-[10px] font-bold text-[#1d4ed8] uppercase tracking-wider block">
-            INDIVIDUAL BRANDS & REPRESENTATION
+            <EditableText idKey="pf-badge" defaultText="INDIVIDUAL BRANDS & REPRESENTATION" />
           </span>
           <h2 className="font-sans text-3xl font-extrabold text-slate-900 tracking-tight">
-            Featured Public Figures & Media Personalities
+            <EditableText idKey="pf-title" defaultText="Featured Public Figures & Media Personalities" />
           </h2>
-          <p className="font-sans text-sm text-slate-600 max-w-3xl">
-            Selected public figures, journalists, creators and personalities associated with our media, PR, content and digital visibility work.
-          </p>
+          <div className="font-sans text-sm text-slate-600 max-w-3xl">
+            <EditableText idKey="pf-desc" defaultText="Selected public figures, journalists, creators and personalities associated with our media, PR, content and digital visibility work." multiline />
+          </div>
         </div>
 
         {/* Carousel Slider */}
@@ -68,11 +70,11 @@ export default function PortfolioView({ onSelectProject, onRequestQuote }: Portf
                     <div className="absolute bottom-0 right-0 w-3 h-3 bg-[#dc2626]" />
                     
                     {PUBLIC_FIGURES[currentSlide].img ? (
-                      <img
-                        src={PUBLIC_FIGURES[currentSlide].img}
+                      <EditableImage
+                        idKey={`pf-img-${PUBLIC_FIGURES[currentSlide].name}`}
+                        defaultSrc={PUBLIC_FIGURES[currentSlide].img}
                         alt={PUBLIC_FIGURES[currentSlide].name}
                         className="w-full h-full object-cover"
-                        referrerPolicy="no-referrer"
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center">
@@ -94,7 +96,7 @@ export default function PortfolioView({ onSelectProject, onRequestQuote }: Portf
                     {/* Category Pill Overlaid on Photo */}
                     <div className="absolute bottom-4 left-4 right-4 bg-slate-900/85 backdrop-blur-md border border-slate-700 px-3.5 py-1.5 rounded-lg text-center">
                       <span className="font-sans text-[9px] font-bold text-white uppercase tracking-wider">
-                        {PUBLIC_FIGURES[currentSlide].category}
+                        <EditableText idKey={`pf-cat-${currentSlide}`} defaultText={PUBLIC_FIGURES[currentSlide].category} />
                       </span>
                     </div>
                   </div>
@@ -107,7 +109,7 @@ export default function PortfolioView({ onSelectProject, onRequestQuote }: Portf
                       MEDIA & PUBLIC REPRESENTATION
                     </span>
                     <h3 className="font-sans text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
-                      {PUBLIC_FIGURES[currentSlide].name}
+                      <EditableText idKey={`pf-name-${currentSlide}`} defaultText={PUBLIC_FIGURES[currentSlide].name} />
                     </h3>
                   </div>
 
@@ -123,7 +125,7 @@ export default function PortfolioView({ onSelectProject, onRequestQuote }: Portf
                             <Check className="w-2.5 h-2.5" />
                           </div>
                           <span className="font-sans text-xs sm:text-sm font-medium text-slate-700">
-                            {service}
+                            <EditableText idKey={`pf-srv-${currentSlide}-${sIdx}`} defaultText={service} />
                           </span>
                         </div>
                       ))}
@@ -176,14 +178,14 @@ export default function PortfolioView({ onSelectProject, onRequestQuote }: Portf
       <section className="space-y-10" id="portfolio-case-studies">
         <div className="text-left border-l-4 border-[#1d4ed8] pl-4 space-y-2">
           <span className="font-mono text-[10px] font-bold text-[#1d4ed8] uppercase tracking-wider block">
-            CORPORATE BRAND SHOWCASE
+            <EditableText idKey="port-cs-badge" defaultText="CORPORATE BRAND SHOWCASE" />
           </span>
           <h2 className="font-sans text-3xl font-extrabold text-slate-900 tracking-tight">
-            Client Success & Case Studies
+            <EditableText idKey="port-cs-title" defaultText="Client Success & Case Studies" />
           </h2>
-          <p className="font-sans text-sm text-slate-600 max-w-3xl">
-            Explore our tactical corporate achievements, organic search rankings, and conversion-engineered digital brand properties. Click on any card below to view extensive operational insights.
-          </p>
+          <div className="font-sans text-sm text-slate-600 max-w-3xl">
+            <EditableText idKey="port-cs-desc" defaultText="Explore our tactical corporate achievements, organic search rankings, and conversion-engineered digital brand properties. Click on any card below to view extensive operational insights." multiline />
+          </div>
         </div>
         
         {/* Projects Grid */}
@@ -208,15 +210,15 @@ export default function PortfolioView({ onSelectProject, onRequestQuote }: Portf
               >
                 {/* Image Section with Overlay */}
                 <div className="relative h-48 overflow-hidden shrink-0">
-                  <img
+                  <EditableImage
+                    idKey={`proj-img-${proj.id}`}
+                    defaultSrc={proj.img}
                     alt={proj.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    src={proj.img}
-                    referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
-                  <span className="absolute top-4 left-4 bg-white/95 backdrop-blur-md text-[#1d4ed8] border border-blue-100 text-[9px] font-mono font-bold uppercase py-1 px-3 rounded-full shadow-md">
-                    {proj.category}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent pointer-events-none" />
+                  <span className="absolute top-4 left-4 bg-white/95 backdrop-blur-md text-[#1d4ed8] border border-blue-100 text-[9px] font-mono font-bold uppercase py-1 px-3 rounded-full shadow-md z-10">
+                    <EditableText idKey={`proj-cat-${proj.id}`} defaultText={proj.category} />
                   </span>
                 </div>
 
@@ -225,18 +227,18 @@ export default function PortfolioView({ onSelectProject, onRequestQuote }: Portf
                   <div className="space-y-2 text-left">
                     {/* Industry */}
                     <span className="font-mono text-[9px] text-slate-500 uppercase tracking-widest block">
-                      {proj.clientIndustry || 'B2B Enterprise'}
+                      <EditableText idKey={`proj-ind-${proj.id}`} defaultText={proj.clientIndustry || 'B2B Enterprise'} />
                     </span>
                     
                     {/* Title */}
                     <h3 className="font-sans text-base font-extrabold text-slate-900 leading-snug tracking-tight group-hover:text-[#1d4ed8] transition-colors duration-200 line-clamp-2">
-                      {proj.title}
+                      <EditableText idKey={`proj-title-${proj.id}`} defaultText={proj.title} />
                     </h3>
 
                     {/* Brief description */}
-                    <p className="font-sans text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                      {proj.description}
-                    </p>
+                    <div className="font-sans text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                      <EditableText idKey={`proj-desc-${proj.id}`} defaultText={proj.description} multiline />
+                    </div>
 
                     {/* Services Delivered */}
                     {proj.servicesDelivered && proj.servicesDelivered.length > 0 && (
@@ -245,7 +247,7 @@ export default function PortfolioView({ onSelectProject, onRequestQuote }: Portf
                         <div className="flex flex-wrap gap-1 leading-none">
                           {proj.servicesDelivered.slice(0, 3).map((sd, sIdx) => (
                             <span key={sIdx} className="bg-blue-50/50 border border-blue-100/30 text-slate-600 text-[9px] px-1.5 py-0.5 rounded">
-                              {sd}
+                              <EditableText idKey={`proj-sd-${proj.id}-${sIdx}`} defaultText={sd} />
                             </span>
                           ))}
                         </div>
@@ -258,7 +260,7 @@ export default function PortfolioView({ onSelectProject, onRequestQuote }: Portf
                     <div className="flex items-center justify-between">
                       <span className="text-[9px] font-mono text-slate-500 uppercase">Key Results</span>
                       <span className="bg-red-50 text-[#dc2626] border border-red-100 font-mono text-[10px] font-extrabold px-2 py-0.5 rounded">
-                        {proj.metrics}
+                        <EditableText idKey={`proj-met-${proj.id}`} defaultText={proj.metrics} />
                       </span>
                     </div>
 

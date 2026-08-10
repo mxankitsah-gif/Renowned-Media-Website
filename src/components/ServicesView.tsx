@@ -8,6 +8,7 @@ import { SERVICES } from '../data';
 import { ActiveTab } from '../types';
 import ServiceIcon from './ServiceIcon';
 import { Check, ArrowRight, Shield, Award, Zap, Sparkles } from 'lucide-react';
+import EditableText from './builder/EditableText';
 
 interface ServicesViewProps {
   onSelectServiceForQuote: (serviceId: string) => void;
@@ -51,14 +52,22 @@ export default function ServicesView({
       {/* SECTION 1: HERO HEADER */}
       <section className="max-w-4xl mx-auto text-center space-y-6" id="services-hero">
         <span className="font-mono text-xs font-bold text-[#1d4ed8] bg-[#1d4ed8]/10 px-4 py-2 rounded-full uppercase tracking-wider block w-fit mx-auto">
-          OUR SERVICES
+          <EditableText idKey="services-badge" defaultText="OUR SERVICES" />
         </span>
         <h1 className="font-sans text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-3xl mx-auto">
-          Digital Marketing, Media & <span className="text-[#1d4ed8]">Political Outreach</span> Solutions
+          <EditableText idKey="services-hero-title1" defaultText="Digital Marketing, Media & " />
+          <span className="text-[#1d4ed8]">
+            <EditableText idKey="services-hero-highlight" defaultText="Political Outreach" />
+          </span>
+          <EditableText idKey="services-hero-title2" defaultText=" Solutions" />
         </h1>
-        <p className="font-sans text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
-          We help brands, influencers, political leaders, public figures and organizations build visibility, authority and measurable growth through strategic digital marketing, content production, media management and performance campaigns.
-        </p>
+        <div className="font-sans text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
+          <EditableText 
+            idKey="services-hero-desc" 
+            defaultText="We help brands, influencers, political leaders, public figures and organizations build visibility, authority and measurable growth through strategic digital marketing, content production, media management and performance campaigns." 
+            multiline 
+          />
+        </div>
       </section>
 
       {/* SECTION 2: THE 7 SERVICE CARDS */}
@@ -103,14 +112,14 @@ export default function ServicesView({
                       </span>
                     )}
                     <h3 className="font-sans text-xl font-extrabold text-slate-900 leading-tight">
-                      {srv.title}
+                      <EditableText idKey={`srv-pg-title-${srv.id}`} defaultText={srv.title} />
                     </h3>
                   </div>
 
                   {/* Description */}
-                  <p className="font-sans text-sm text-slate-600 leading-relaxed mb-6">
-                    {srv.description}
-                  </p>
+                  <div className="font-sans text-sm text-slate-600 leading-relaxed mb-6">
+                    <EditableText idKey={`srv-pg-desc-${srv.id}`} defaultText={srv.description} multiline />
+                  </div>
 
                   {/* Included List */}
                   <div className="space-y-3 mb-8">
@@ -128,7 +137,7 @@ export default function ServicesView({
                             <Check className="w-3.5 h-3.5" />
                           </span>
                           <span className="font-sans text-xs sm:text-sm font-semibold text-slate-700 leading-tight">
-                            {item}
+                            <EditableText idKey={`srv-pg-deliv-${srv.id}-${dIdx}`} defaultText={item} />
                           </span>
                         </li>
                       ))}
@@ -139,7 +148,7 @@ export default function ServicesView({
                 {/* Card CTA Footer */}
                 <div className="pt-6 border-t border-slate-100 flex items-center justify-between gap-4 mt-auto">
                   <span className="font-mono text-[10px] text-slate-500 font-medium">
-                    {srv.duration}
+                    <EditableText idKey={`srv-pg-dur-${srv.id}`} defaultText={srv.duration} />
                   </span>
                   <button
                     onClick={() => onSelectServiceForQuote(srv.id)}
@@ -161,14 +170,14 @@ export default function ServicesView({
         <div className="space-y-16">
           <div className="text-center max-w-2xl mx-auto space-y-4">
             <span className="font-mono text-xs font-bold text-[#1d4ed8] leading-normal uppercase tracking-wider block">
-              Proven Capabilities
+              <EditableText idKey="services-why-badge" defaultText="Proven Capabilities" />
             </span>
             <h2 className="font-sans text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Why Choose Renowned Media
+              <EditableText idKey="services-why-title" defaultText="Why Choose Renowned Media" />
             </h2>
-            <p className="font-sans text-sm text-slate-600 leading-relaxed">
-              We align top-tier strategies with surgical execution to ensure your brand stands apart.
-            </p>
+            <div className="font-sans text-sm text-slate-600 leading-relaxed">
+              <EditableText idKey="services-why-desc" defaultText="We align top-tier strategies with surgical execution to ensure your brand stands apart." multiline />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -189,15 +198,15 @@ export default function ServicesView({
                     </div>
                     <div className="space-y-1">
                       <span className="font-mono text-[9px] font-bold text-[#1d4ed8] uppercase tracking-wider block">
-                        {feat.highlight}
+                        <EditableText idKey={`srv-feat-hl-${idx}`} defaultText={feat.highlight} />
                       </span>
                       <h4 className="font-sans text-base font-extrabold text-slate-900">
-                        {feat.title}
+                        <EditableText idKey={`srv-feat-title-${idx}`} defaultText={feat.title} />
                       </h4>
                     </div>
-                    <p className="font-sans text-xs text-slate-600 leading-relaxed">
-                      {feat.description}
-                    </p>
+                    <div className="font-sans text-xs text-slate-600 leading-relaxed">
+                      <EditableText idKey={`srv-feat-desc-${idx}`} defaultText={feat.description} multiline />
+                    </div>
                   </div>
                 </div>
               );
@@ -210,11 +219,11 @@ export default function ServicesView({
       <section className="py-16 max-w-4xl mx-auto text-center space-y-8" id="services-final-cta">
         <div className="space-y-4">
           <h2 className="font-sans text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Ready To Grow Your Brand?
+            <EditableText idKey="services-cta-title" defaultText="Ready To Grow Your Brand?" />
           </h2>
-          <p className="font-sans text-slate-600 max-w-xl mx-auto">
-            Let's build a digital strategy that drives visibility, engagement and real business results.
-          </p>
+          <div className="font-sans text-slate-600 max-w-xl mx-auto">
+            <EditableText idKey="services-cta-desc" defaultText="Let's build a digital strategy that drives visibility, engagement and real business results." multiline />
+          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

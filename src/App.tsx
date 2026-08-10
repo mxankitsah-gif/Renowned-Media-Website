@@ -23,6 +23,7 @@ import { BuilderProvider } from './context/BuilderContext';
 import { BuilderToolbar } from './components/builder/BuilderToolbar';
 import { ImagePickerModal } from './components/builder/ImagePickerModal';
 import { AddSectionModal } from './components/builder/AddSectionModal';
+import { AdminLoginModal } from './components/builder/AdminLoginModal';
 
 const pathToTab: Record<string, ActiveTab> = {
   '/': 'home',
@@ -255,6 +256,7 @@ export default function App() {
         <BuilderToolbar />
         <ImagePickerModal />
         <AddSectionModal />
+        <AdminLoginModal />
 
         {/* Floating WhatsApp Live Chat Button */}
         <a

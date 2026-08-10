@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 import { Award, Zap, Sparkles, Clock, Globe, ArrowRight, Coins, Flame, TrendingUp, Headset, Megaphone, Search } from 'lucide-react';
 import { motion } from 'motion/react';
 import { AGENCY_DETAILS } from '../data';
+import EditableText from './builder/EditableText';
+import EditableImage from './builder/EditableImage';
 
 const WHY_CHOOSE_ITEMS = [
   {
@@ -121,26 +123,46 @@ export default function AboutView() {
       <section className="max-w-3xl mx-auto space-y-12 text-center" id="about-hero-section">
         <div className="space-y-6">
           <span className="font-mono text-xs font-bold text-[#1d4ed8] bg-[#1d4ed8]/10 px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block">
-            ABOUT RENOWNED MEDIA
+            <EditableText idKey="about-hero-badge" defaultText="ABOUT RENOWNED MEDIA" />
           </span>
           <h1 className="font-sans text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight">
-            Elevating Brands through <span className="text-[#1d4ed8]">Creativity</span> & Strategic Growth
+            <EditableText idKey="about-hero-title1" defaultText="Elevating Brands through " />
+            <span className="text-[#1d4ed8]">
+              <EditableText idKey="about-hero-title-highlight" defaultText="Creativity" />
+            </span>
+            <EditableText idKey="about-hero-title2" defaultText=" & Strategic Growth" />
           </h1>
         </div>
         
         <div className="space-y-6 font-sans text-sm md:text-base text-slate-600 leading-relaxed text-left">
-          <p>
-            Renowned Media is a full-service media, branding and digital growth agency dedicated to helping creators, public figures, businesses and organizations build visibility, authority and audience trust in the digital era.
-          </p>
-          <p>
-            Founded on years of practical experience in media, content production and digital communication, Renowned Media brings together strategy, creativity and execution under one roof. Our team works across content creation, social media management, public relations, SEO, political communication, personal branding and audience growth initiatives.
-          </p>
-          <p>
-            We believe that strong brands are not built through content alone. They are built through consistent messaging, strategic positioning, meaningful audience engagement and long-term credibility. Every project we undertake is designed to strengthen brand perception, increase visibility and create measurable business impact.
-          </p>
-          <p>
-            From entrepreneurs and creators to journalists, public figures and growing businesses, we help our clients navigate the evolving digital landscape with clarity, creativity and purpose.
-          </p>
+          <div>
+            <EditableText 
+              idKey="about-hero-p1" 
+              defaultText="Renowned Media is a full-service media, branding and digital growth agency dedicated to helping creators, public figures, businesses and organizations build visibility, authority and audience trust in the digital era." 
+              multiline 
+            />
+          </div>
+          <div>
+            <EditableText 
+              idKey="about-hero-p2" 
+              defaultText="Founded on years of practical experience in media, content production and digital communication, Renowned Media brings together strategy, creativity and execution under one roof. Our team works across content creation, social media management, public relations, SEO, political communication, personal branding and audience growth initiatives." 
+              multiline 
+            />
+          </div>
+          <div>
+            <EditableText 
+              idKey="about-hero-p3" 
+              defaultText="We believe that strong brands are not built through content alone. They are built through consistent messaging, strategic positioning, meaningful audience engagement and long-term credibility. Every project we undertake is designed to strengthen brand perception, increase visibility and create measurable business impact." 
+              multiline 
+            />
+          </div>
+          <div>
+            <EditableText 
+              idKey="about-hero-p4" 
+              defaultText="From entrepreneurs and creators to journalists, public figures and growing businesses, we help our clients navigate the evolving digital landscape with clarity, creativity and purpose." 
+              multiline 
+            />
+          </div>
         </div>
 
         {/* Vision & Mission grid */}
@@ -149,22 +171,30 @@ export default function AboutView() {
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-[#1d4ed8]" />
             <h3 className="font-sans text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1d4ed8]" />
-              OUR VISION
+              <EditableText idKey="about-vision-title" defaultText="OUR VISION" />
             </h3>
-            <p className="font-sans text-xs text-slate-600 leading-relaxed">
-              To become a trusted media and digital growth partner for brands, creators and organizations seeking meaningful visibility and sustainable growth.
-            </p>
+            <div className="font-sans text-xs text-slate-600 leading-relaxed">
+              <EditableText 
+                idKey="about-vision-desc" 
+                defaultText="To become a trusted media and digital growth partner for brands, creators and organizations seeking meaningful visibility and sustainable growth." 
+                multiline 
+              />
+            </div>
           </div>
           
           <div className="space-y-3 bg-slate-50/50 rounded-xl p-6 border border-slate-200/60 shadow-sm relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-[#1d4ed8]" />
             <h3 className="font-sans text-base font-extrabold text-[#1d4ed8] tracking-tight flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1d4ed8]" />
-              OUR MISSION
+              <EditableText idKey="about-mission-title" defaultText="OUR MISSION" />
             </h3>
-            <p className="font-sans text-xs text-slate-600 leading-relaxed">
-              To combine media expertise, strategic communication and creative execution to help clients build influence, expand reach and establish lasting authority across modern digital platforms.
-            </p>
+            <div className="font-sans text-xs text-slate-600 leading-relaxed">
+              <EditableText 
+                idKey="about-mission-desc" 
+                defaultText="To combine media expertise, strategic communication and creative execution to help clients build influence, expand reach and establish lasting authority across modern digital platforms." 
+                multiline 
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -179,14 +209,14 @@ export default function AboutView() {
               className="space-y-2 bg-white rounded-lg p-6 border border-slate-200 transition-all duration-300 shadow-sm"
             >
               <h4 className="font-sans text-3xl font-extrabold text-[#1d4ed8] tracking-tight">
-                {stat.value}
+                <EditableText idKey={`about-stat-val-${idx}`} defaultText={stat.value} />
               </h4>
-              <p className="font-sans font-bold text-sm text-slate-800 leading-snug">
-                {stat.label}
-              </p>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
-                {stat.desc}
-              </p>
+              <div className="font-sans font-bold text-sm text-slate-800 leading-snug">
+                <EditableText idKey={`about-stat-lbl-${idx}`} defaultText={stat.label} />
+              </div>
+              <div className="font-sans text-xs text-slate-600 leading-relaxed">
+                <EditableText idKey={`about-stat-desc-${idx}`} defaultText={stat.desc} multiline />
+              </div>
             </motion.div>
           ))}
         </div>
@@ -195,8 +225,12 @@ export default function AboutView() {
       {/* Philosophy & Values */}
       <section className="space-y-10">
         <div className="text-center max-w-xl mx-auto space-y-3">
-          <h3 className="font-sans text-2xl font-extrabold text-slate-900">Core Values Built To Scale</h3>
-          <p className="text-sm text-slate-600">We align behind high-fidelity protocols designed to yield direct business leverage.</p>
+          <h3 className="font-sans text-2xl font-extrabold text-slate-900">
+            <EditableText idKey="about-values-title" defaultText="Core Values Built To Scale" />
+          </h3>
+          <div className="text-sm text-slate-600">
+            <EditableText idKey="about-values-sub" defaultText="We align behind high-fidelity protocols designed to yield direct business leverage." />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -218,10 +252,12 @@ export default function AboutView() {
                 }`}>
                   {active ? <Sparkles className="w-5 h-5 text-white" /> : val.icon}
                 </div>
-                <h4 className="font-sans font-bold text-base mb-2">{val.title}</h4>
-                <p className={`font-sans text-xs leading-relaxed ${active ? 'text-white/90' : 'text-slate-600'}`}>
-                  {val.details}
-                </p>
+                <h4 className="font-sans font-bold text-base mb-2">
+                  <EditableText idKey={`about-val-title-${idx}`} defaultText={val.title} />
+                </h4>
+                <div className={`font-sans text-xs leading-relaxed ${active ? 'text-white/90' : 'text-slate-600'}`}>
+                  <EditableText idKey={`about-val-desc-${idx}`} defaultText={val.details} multiline />
+                </div>
                 <div className="mt-4 flex items-center justify-between text-[11px] font-bold tracking-wider uppercase font-mono">
                   <span>{active ? 'Hide details' : 'Click to highlight'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -235,7 +271,9 @@ export default function AboutView() {
       {/* Milestones / Timeline */}
       <section className="space-y-12">
         <div className="text-center max-w-xl mx-auto">
-          <h3 className="font-sans text-2xl font-extrabold text-slate-900">Historic Evolution</h3>
+          <h3 className="font-sans text-2xl font-extrabold text-slate-900">
+            <EditableText idKey="about-milestones-title" defaultText="Historic Evolution" />
+          </h3>
         </div>
 
         <div className="relative border-l border-slate-200 ml-4 md:ml-32 md:space-y-8 space-y-12">
@@ -243,7 +281,9 @@ export default function AboutView() {
             <div key={idx} className="relative pl-8 md:pl-16">
               {/* Year marker box for large screen */}
               <div className="hidden md:flex absolute right-full mr-8 top-1 items-center justify-end w-24">
-                <span className="font-mono text-sm font-bold text-[#1d4ed8]">{ml.year}</span>
+                <span className="font-mono text-sm font-bold text-[#1d4ed8]">
+                  <EditableText idKey={`about-ml-year-${idx}`} defaultText={ml.year} />
+                </span>
               </div>
               
               {/* Node dot */}
@@ -251,14 +291,14 @@ export default function AboutView() {
 
               <div className="space-y-1.5 max-w-xl">
                 <span className="md:hidden font-mono text-xs font-bold text-[#1d4ed8] block">
-                  {ml.year}
+                  <EditableText idKey={`about-ml-year-m-${idx}`} defaultText={ml.year} />
                 </span>
                 <h4 className="font-sans font-extrabold text-base text-slate-900 leading-tight">
-                  {ml.title}
+                  <EditableText idKey={`about-ml-title-${idx}`} defaultText={ml.title} />
                 </h4>
-                <p className="font-sans text-xs text-slate-600 leading-relaxed">
-                  {ml.text}
-                </p>
+                <div className="font-sans text-xs text-slate-600 leading-relaxed">
+                  <EditableText idKey={`about-ml-text-${idx}`} defaultText={ml.text} multiline />
+                </div>
               </div>
             </div>
           ))}
@@ -268,10 +308,12 @@ export default function AboutView() {
       {/* Why Choose Renowned Media Section */}
       <section className="space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <h3 className="font-sans text-2xl font-extrabold text-slate-900">Why Choose Renowned Media</h3>
-          <p className="text-sm text-slate-600">
-            We engineer premier growth and content experiences tailored for leading Indian creators, startups, local businesses, and SMEs.
-          </p>
+          <h3 className="font-sans text-2xl font-extrabold text-slate-900">
+            <EditableText idKey="about-why-title" defaultText="Why Choose Renowned Media" />
+          </h3>
+          <div className="text-sm text-slate-600">
+            <EditableText idKey="about-why-sub" defaultText="We engineer premier growth and content experiences tailored for leading Indian creators, startups, local businesses, and SMEs." multiline />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
@@ -295,8 +337,12 @@ export default function AboutView() {
                     <IconComponent className="w-5 h-5" />
                   </div>
                   <div className="space-y-2">
-                    <h4 className="font-sans font-extrabold text-base text-slate-900 leading-tight">{item.title}</h4>
-                    <p className="font-sans text-xs text-slate-600 leading-relaxed min-h-[48px]">{item.desc}</p>
+                    <h4 className="font-sans font-extrabold text-base text-slate-900 leading-tight">
+                      <EditableText idKey={`about-why-item-title-${idx}`} defaultText={item.title} />
+                    </h4>
+                    <div className="font-sans text-xs text-slate-600 leading-relaxed min-h-[48px]">
+                      <EditableText idKey={`about-why-item-desc-${idx}`} defaultText={item.desc} multiline />
+                    </div>
                   </div>
                 </div>
               </div>

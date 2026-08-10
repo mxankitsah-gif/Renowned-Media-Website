@@ -6,6 +6,7 @@
 import { useState, useEffect } from 'react';
 import { BookOpen, ExternalLink, ArrowRight, ArrowLeft, Calendar, Tag, RefreshCw } from 'lucide-react';
 import { ActiveTab } from '../types';
+import EditableText from './builder/EditableText';
 
 interface BlogViewProps {
   onTabChange: (tab: ActiveTab) => void;
@@ -188,12 +189,12 @@ export default function BlogView({ onTabChange, onRequestQuote }: BlogViewProps)
           </div>
 
           <h1 className="font-sans font-extrabold text-3xl sm:text-5xl text-slate-900 tracking-tight leading-tight">
-            Renowned Official Blog
+            <EditableText idKey="blog-hero-title" defaultText="Renowned Official Blog" />
           </h1>
 
-          <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed">
-            Read our latest SEO guides, digital marketing insights and growth strategies.
-          </p>
+          <div className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed">
+            <EditableText idKey="blog-hero-desc" defaultText="Read our latest SEO guides, digital marketing insights and growth strategies." multiline />
+          </div>
 
           <div className="pt-4">
             <a
@@ -367,10 +368,12 @@ export default function BlogView({ onTabChange, onRequestQuote }: BlogViewProps)
 
       {/* Call to Action Footer */}
       <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-8 text-center space-y-6 shadow-sm">
-        <h3 className="font-sans text-lg font-extrabold text-slate-900">Need a Dedicated Growth & Authority Plan?</h3>
-        <p className="font-sans text-xs text-slate-600 max-w-xl mx-auto leading-relaxed">
-          Unlock maximum impact campaigns. Get in touch to configure custom local content calendars, targeted search strategies, and fully managed growth systems.
-        </p>
+        <h3 className="font-sans text-lg font-extrabold text-slate-900">
+          <EditableText idKey="blog-footer-title" defaultText="Need a Dedicated Growth & Authority Plan?" />
+        </h3>
+        <div className="font-sans text-xs text-slate-600 max-w-xl mx-auto leading-relaxed">
+          <EditableText idKey="blog-footer-desc" defaultText="Unlock maximum impact campaigns. Get in touch to configure custom local content calendars, targeted search strategies, and fully managed growth systems." multiline />
+        </div>
         <div>
           <button
             onClick={onRequestQuote}

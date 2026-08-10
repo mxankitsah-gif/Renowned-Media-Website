@@ -51,3 +51,5 @@ export const EditableImage: React.FC<EditableImageProps> = ({
     </div>
   );
 };
+
+export default EditableImage;

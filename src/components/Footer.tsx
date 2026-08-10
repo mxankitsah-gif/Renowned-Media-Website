@@ -6,13 +6,16 @@
 import { AGENCY_DETAILS } from '../data';
 import { ActiveTab } from '../types';
 import RenownedLogo from './RenownedLogo';
-import { Instagram, Youtube, Facebook, BookOpen, MapPin } from 'lucide-react';
+import { Instagram, Youtube, Facebook, BookOpen, MapPin, Shield } from 'lucide-react';
+import EditableText from './builder/EditableText';
+import { useBuilder } from '../context/BuilderContext';
 
 interface FooterProps {
   onTabChange: (tab: ActiveTab) => void;
 }
 
 export default function Footer({ onTabChange }: FooterProps) {
+  const { openAdminModal, isAdminLoggedIn } = useBuilder();
   
   const companyLinks: { label: string; id: ActiveTab }[] = [
     { label: 'Home', id: 'home' },
@@ -57,9 +60,9 @@ export default function Footer({ onTabChange }: FooterProps) {
           >
             <RenownedLogo className="h-10 w-auto" />
           </button>
-          <p className="font-sans text-xs text-slate-600 leading-relaxed">
-            {AGENCY_DETAILS.fullSummary}
-          </p>
+          <div className="font-sans text-xs text-slate-600 leading-relaxed">
+            <EditableText idKey="footer-summary" defaultText={AGENCY_DETAILS.fullSummary} multiline />
+          </div>
         </div>
 
         {/* Company Links */}
@@ -131,28 +134,28 @@ export default function Footer({ onTabChange }: FooterProps) {
             </a>
             
             <div className="space-y-2 pt-1">
-              <p className="block">
+              <div className="block">
                 <a
                   href={`mailto:${AGENCY_DETAILS.email}`}
                   className="text-[#1d4ed8] hover:text-[#1e40af] transition-all font-bold block"
                 >
-                  {AGENCY_DETAILS.email}
+                  <EditableText idKey="footer-email" defaultText={AGENCY_DETAILS.email} />
                 </a>
-              </p>
-              <p className="space-y-1 block">
+              </div>
+              <div className="space-y-1 block">
                 <a
                   href={`tel:${AGENCY_DETAILS.phone1}`}
                   className="hover:text-[#1d4ed8] text-slate-600 transition-colors block font-mono font-medium"
                 >
-                  {AGENCY_DETAILS.phone1}
+                  <EditableText idKey="footer-phone1" defaultText={AGENCY_DETAILS.phone1} />
                 </a>
                 <a
                   href={`tel:${AGENCY_DETAILS.phone2}`}
                   className="hover:text-[#1d4ed8] text-slate-600 transition-colors block font-mono font-medium"
                 >
-                  {AGENCY_DETAILS.phone2}
+                  <EditableText idKey="footer-phone2" defaultText={AGENCY_DETAILS.phone2} />
                 </a>
-              </p>
+              </div>
             </div>
           </address>
         </div>
@@ -173,6 +176,15 @@ export default function Footer({ onTabChange }: FooterProps) {
           <a href="#cookies" className="hover:text-[#1d4ed8] transition-all">Cookie Policy</a>
           <span className="text-slate-200">|</span>
           <a href="#sitemap" className="hover:text-[#1d4ed8] transition-all">Sitemap</a>
+          <span className="text-slate-200">|</span>
+          <button
+            onClick={openAdminModal}
+            className="hover:text-[#1d4ed8] transition-all text-slate-400 hover:underline flex items-center gap-1 font-mono text-[11px] cursor-pointer"
+            title="Access WordPress Backend Builder"
+          >
+            <Shield className="w-3 h-3 text-blue-600" />
+            <span>{isAdminLoggedIn ? 'WP-Admin Dashboard' : 'WP-Admin Login'}</span>
+          </button>
         </div>
       </div>
     </footer>

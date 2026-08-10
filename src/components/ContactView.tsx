@@ -8,6 +8,7 @@ import { Mail, Phone, MapPin, HelpCircle, ChevronDown, ExternalLink } from 'luci
 import { motion, AnimatePresence } from 'motion/react';
 import { AGENCY_DETAILS } from '../data';
 import { trackFormSubmission } from '../lib/analytics';
+import EditableText from './builder/EditableText';
 
 export default function ContactView() {
   // FAQ states
@@ -33,14 +34,18 @@ export default function ContactView() {
       {/* Intro Header */}
       <section className="text-center max-w-2xl mx-auto space-y-4">
         <span className="font-sans text-xs font-bold text-[#1d4ed8] bg-[#1d4ed8]/10 px-4 py-1.5 rounded-full uppercase tracking-widest block w-fit mx-auto">
-          Get In Touch
+          <EditableText idKey="contact-badge" defaultText="Get In Touch" />
         </span>
         <h1 className="font-sans text-4xl font-extrabold text-slate-900 tracking-tight">
-          Initiate Your Growth Routine
+          <EditableText idKey="contact-title" defaultText="Initiate Your Growth Routine" />
         </h1>
-        <p className="font-sans text-base text-slate-600 leading-relaxed">
-          Ready to elevate your digital presence, coordinate premium photography shoots, or establish organic search authority? We partner with leading Indian creators, startups, coaches, local businesses, and SMEs to orchestrate elite digital growth channels.
-        </p>
+        <div className="font-sans text-base text-slate-600 leading-relaxed">
+          <EditableText 
+            idKey="contact-desc" 
+            defaultText="Ready to elevate your digital presence, coordinate premium photography shoots, or establish organic search authority? We partner with leading Indian creators, startups, coaches, local businesses, and SMEs to orchestrate elite digital growth channels." 
+            multiline 
+          />
+        </div>
       </section>
 
       {/* Main Form & details blocks */}
@@ -48,7 +53,9 @@ export default function ContactView() {
         {/* Contact details & Map block */}
         <div className="lg:col-span-4 space-y-8">
           <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-8 space-y-6">
-            <h3 className="font-sans font-extrabold text-lg text-slate-900">Direct Inquiry Channels</h3>
+            <h3 className="font-sans font-extrabold text-lg text-slate-900">
+              <EditableText idKey="contact-inquiry-title" defaultText="Direct Inquiry Channels" />
+            </h3>
             
             <div className="space-y-4 text-xs font-sans">
               {/* Mail */}
@@ -57,7 +64,7 @@ export default function ContactView() {
                 <div className="space-y-1">
                   <span className="font-sans font-bold text-[9px] text-slate-500 uppercase block tracking-wider">Mail Address</span>
                   <a href={`mailto:${AGENCY_DETAILS.email}`} className="text-xs font-semibold text-[#1d4ed8] hover:text-[#1e40af] hover:underline">
-                    {AGENCY_DETAILS.email}
+                    <EditableText idKey="contact-email" defaultText={AGENCY_DETAILS.email} />
                   </a>
                 </div>
               </div>
@@ -69,10 +76,10 @@ export default function ContactView() {
                   <span className="font-sans font-bold text-[9px] text-slate-500 uppercase block tracking-wider">Operations Phone</span>
                   <div className="space-y-1">
                     <a href={`tel:${AGENCY_DETAILS.phone1}`} className="text-xs font-semibold text-[#1d4ed8] hover:text-[#1e40af] hover:underline block font-sans">
-                      {AGENCY_DETAILS.phone1}
+                      <EditableText idKey="contact-phone1" defaultText={AGENCY_DETAILS.phone1} />
                     </a>
                     <a href={`tel:${AGENCY_DETAILS.phone2}`} className="text-xs font-semibold text-[#1d4ed8] hover:text-[#1e40af] hover:underline block font-sans">
-                      {AGENCY_DETAILS.phone2}
+                      <EditableText idKey="contact-phone2" defaultText={AGENCY_DETAILS.phone2} />
                     </a>
                   </div>
                 </div>
@@ -96,7 +103,7 @@ export default function ContactView() {
                 <div className="space-y-1">
                   <span className="font-sans font-bold text-[9px] text-slate-500 uppercase block tracking-wider">WHATSAPP CHAT</span>
                   <span className="text-xs font-semibold text-[#1d4ed8] group-hover:text-[#1e40af] group-hover:underline block font-sans">
-                    +91-882-899-8296
+                    <EditableText idKey="contact-whatsapp" defaultText="+91-882-899-8296" />
                   </span>
                 </div>
               </a>
@@ -107,7 +114,7 @@ export default function ContactView() {
                 <div className="space-y-1">
                   <span className="font-sans font-bold text-[9px] text-slate-500 uppercase block tracking-wider">Headquarters Location</span>
                   <span className="text-slate-600 font-semibold block leading-relaxed font-sans">
-                    {AGENCY_DETAILS.address}
+                    <EditableText idKey="contact-address" defaultText={AGENCY_DETAILS.address} multiline />
                   </span>
                 </div>
               </div>
@@ -119,12 +126,14 @@ export default function ContactView() {
             <div className="absolute inset-0 bg-[#1d4ed8]/4 select-none pointer-events-none" />
             <div className="relative space-y-2">
               <span className="font-sans text-[10px] text-[#1d4ed8] font-bold uppercase tracking-widest block">
-                Global Operations Hub
+                <EditableText idKey="contact-hub-tag" defaultText="Global Operations Hub" />
               </span>
-              <h4 className="font-sans font-bold text-base text-slate-900">Ghaziabad, Uttar Pradesh</h4>
-              <p className="font-sans text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
-                Coordinating high-end digital authority, search strategy, and premium digital assets for corporate sectors internationally.
-              </p>
+              <h4 className="font-sans font-bold text-base text-slate-900">
+                <EditableText idKey="contact-hub-city" defaultText="Ghaziabad, Uttar Pradesh" />
+              </h4>
+              <div className="font-sans text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
+                <EditableText idKey="contact-hub-desc" defaultText="Coordinating high-end digital authority, search strategy, and premium digital assets for corporate sectors internationally." multiline />
+              </div>
             </div>
           </div>
         </div>
@@ -138,11 +147,11 @@ export default function ContactView() {
           <div className="border-b border-slate-100 pb-6 text-left flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
               <h3 className="font-sans font-extrabold text-2xl text-slate-900 tracking-tight">
-                Request a Consultation
+                <EditableText idKey="contact-form-title" defaultText="Request a Consultation" />
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Tell us about your project and our team will get back to you.
-              </p>
+              <div className="text-xs text-slate-600 leading-relaxed">
+                <EditableText idKey="contact-form-sub" defaultText="Tell us about your project and our team will get back to you." />
+              </div>
             </div>
             <a 
               href="https://docs.google.com/forms/d/e/1FAIpQLSfPnoUEiAsg5aaFFP7J0BkSpcRD-dDV3Eg4Ur3kMWIuGk1jdw/viewform?usp=header" 
@@ -195,8 +204,12 @@ export default function ContactView() {
       {/* Structured FAQ accordion section */}
       <section className="space-y-8 border-t border-slate-100 pt-16">
         <div className="text-center max-w-md mx-auto space-y-2">
-          <h3 className="font-sans text-2xl font-extrabold text-slate-900">Frequently Queried Parameters</h3>
-          <p className="text-xs text-slate-600">Review standard operational methodologies prior to blueprint validation.</p>
+          <h3 className="font-sans text-2xl font-extrabold text-slate-900">
+            <EditableText idKey="faq-title" defaultText="Frequently Queried Parameters" />
+          </h3>
+          <div className="text-xs text-slate-600">
+            <EditableText idKey="faq-sub" defaultText="Review standard operational methodologies prior to blueprint validation." />
+          </div>
         </div>
 
         <div className="max-w-3xl mx-auto space-y-3" id="faq-accordions">
@@ -215,7 +228,9 @@ export default function ContactView() {
                 >
                   <div className="flex items-center gap-2.5">
                     <HelpCircle className="w-4 h-4 text-[#1d4ed8] shrink-0" />
-                    <span>{faq.q}</span>
+                    <span>
+                      <EditableText idKey={`faq-q-${idx}`} defaultText={faq.q} />
+                    </span>
                   </div>
                   <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isFaqExpanded ? 'rotate-180 text-[#1d4ed8]' : ''}`} />
                 </button>
@@ -229,7 +244,7 @@ export default function ContactView() {
                       transition={{ duration: 0.2 }}
                     >
                       <div className="px-11 pb-4 pt-1 text-xs text-slate-600 font-sans leading-relaxed border-t border-slate-100">
-                        {faq.a}
+                        <EditableText idKey={`faq-a-${idx}`} defaultText={faq.a} multiline />
                       </div>
                     </motion.div>
                   )}
